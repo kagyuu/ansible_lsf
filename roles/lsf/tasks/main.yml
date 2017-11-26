@@ -1,0 +1,47 @@
+---
+- name: Install required libraries
+  yum: name={{ item }}  state=present
+  with_items:
+    - java-1.8.0-openjdk
+    - ed
+    - openssh-server
+    - openssh-clients
+
+- group: name=lsfadmin
+- user: name=lsfadmin group=lsfadmin
+
+- name: make %lsfadmin sudoer
+  copy:
+    src: lsfadmin
+    dest: /etc/sudoers.d/
+    mode: 0440
+
+- name: create lsf top
+  file:
+    path=/usr/share/lsf state=directory
+    owner=lsfadmin group=lsfadmin
+    recurse=yes
+
+- name: create lsf install directory
+  file:
+    path=/usr/share/lsf_distrib state=directory
+    owner=lsfadmin group=wheel
+    recurse=yes
+
+- name: Expand LSF
+  unarchive:
+    src=/vagrant/lsfce10.1-x86_64.tar.gz
+    dest=/tmp
+    copy=no
+
+- name: Expand Install script
+  unarchive:
+    src=/tmp/lsfce10.1-x86_64/lsf/lsf10.1_lsfinstall_linux_x86_64.tar.Z
+    dest=/usr/share/lsf_distrib
+    copy=no
+
+- name: Copy Install image
+  copy:
+    src=/tmp/lsfce10.1-x86_64/lsf/lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z
+    dest=/usr/share/lsf_distrib/lsf10.1_linux2.6-glibc2.3-x86_64.tar.Z
+    remote_src=yes

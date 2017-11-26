@@ -1,0 +1,6 @@
+.vagrant/
+*.retry
+*.rpm
+*.DS_Store
+*.zip
+*.tar.gz

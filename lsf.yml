@@ -1,0 +1,9 @@
+---
+- name: LSF
+  hosts: lsf
+  become: yes
+  vars_files:
+    - proxy.yml
+  environment: "{{ proxy_env }}"
+  roles:
+    - lsf
