@@ -6,10 +6,10 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.cpus = 2
-    vb.memory = 1024
+    vb.memory = 2048
   end
 
-  config.vm.define "lsf" do |server|
-    server.vm.hostname = "lsf"
+  config.vm.define "lsf1" do |server|
+    server.vm.hostname = "lsf1"
   end
 end

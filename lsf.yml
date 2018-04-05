@@ -1,9 +1,11 @@
 ---
 - name: LSF
-  hosts: lsf
+  hosts: lsf1
   become: yes
   vars_files:
     - proxy.yml
   environment: "{{ proxy_env }}"
   roles:
-    - lsf
+    # DON'T UPDATE OS BEFORE INSTALLING THE LSF.
+    # - ../ansible_common/common
+    - ../ansible_common/lsf
